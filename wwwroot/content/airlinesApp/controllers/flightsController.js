@@ -1,6 +1,19 @@
 (function (app) {
+
+    var onError = function () {
+        alert("error!!");
+    };
+
     var flightsController = function ($scope, flightService, $timeout) {
-        $scope.selectFlight = function (flight) {
+        var onFlights = function(response) {
+            $scope.flights = response.data;
+        }
+
+        var init = function () {
+            $scope.flights = flightService.getFlights().then(onFlights,onError);
+        };
+
+       $scope.selectFlight = function (flight) {
             var toggle = !flight.approved;
 
             for (var f in $scope.flights) {
@@ -16,11 +29,9 @@
                     }, 1000);
                 }
             }
-
         };
-            $scope.flights = flightService.getFlights();
+        init();   
     };
-
     app.controller("flightsController", ["$scope", "flightService", "$timeout", flightsController]);
 
 }(angular.module("airlineApp")));

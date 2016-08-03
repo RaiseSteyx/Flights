@@ -10,7 +10,7 @@
     <script src="content/airlinesApp/services/flightservice.js"></script>
   </head>
   <body ng-app="airlineApp">
-    <div class="container" ng-controller="flightsController">
+    <div class="container" ng-controller="flightsController" ng-cloak>
       <h1>Flights!</h1>
       <div class="alert alert-success" ng-show="status">
           {{status}}
@@ -18,33 +18,30 @@
       <div class="row">
         <div class="col-md-6" ng-repeat="flight in flights">
           <div class="flightCard">
-            <div class="approvedFlight">
-              <h3>{{flight.airline}}</h3>
+            <div ng-class="{ approvedFlight:flight.approved, unapprovedFlight:!flight.approved }">
+              <h3 style="padding-left: 12px">{{flight.airline}}</h3>
             </div>
             <div class="pull-right">
-              <button ng-class="{ btn:true, 'btn-success':flight.approved }" ng-click="selectFlight(flight)">
-                <b>SELECT</b>
-                <span class="glyphicon glyphicon-ok"></span>
+              <button ng-class="{ btn:true, 'btn-success':flight.approved, 'btn-primary':!flight.approved }" ng-click="selectFlight(flight)">
+                <b ng-if="!flight.approved">SELECT</b>
+                <b ng-if="flight.approved">SELECTED</b>
+                <span ng-show="flight.approved" class="glyphicon glyphicon-ok"></span>
               </button>
             </div>
-            <!--<button ng-if="!flight.approved" class="btn btn-primary pull-right" ng-click="selectFlight(flight)">
-              <b>SELECT</b>
-              <span class="glyphicon glyphicon-remove"></span>
-            </button>-->
-            <div>
-              <span>Price: {{flight.price}}</span>
+            <div style="padding-left: 12px">
+              <span>Price: {{flight.price | currency}}</span>
               <span>Duration: {{flight.totalDuration}}</span>
             </div>
             <hr/>
-            <div>
-              <span>Start Time: {{flight.startTime}}</span>
-              <span>End Time: {{flight.endTime}}</span>
-              <ul class="breadcrumb">
+            <div style="padding-left: 12px">
+              <span>Start Time: {{flight.startTime | date: 'hh:mm'}}</span>
+              <span>End Time: {{flight.endTime | date: 'hh:mm'}}</span>
+            </div>
+            <ul class="breadcrumb">
                 <li ng-repeat="city in flight.cities">
                   {{city}}
                 </li>
-              </ul>
-            </div>
+            </ul>
           </div>
         </div>
       </div>

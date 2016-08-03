@@ -11,3 +11,7 @@
 .approvedFlight{
     background-color: #5cb85c;
 }
+
+.unapprovedFlight {
+    background-color: #428bca;
+}
