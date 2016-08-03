@@ -7,10 +7,14 @@
     <script src="content/js/angular.min.js"></script>
     <script src="content/airlinesApp/airlineapp.js"></script>
     <script src="content/airlinesApp/controllers/flightsController.js"></script>
+    <script src="content/airlinesApp/services/flightservice.js"></script>
   </head>
   <body ng-app="airlineApp">
     <div class="container" ng-controller="flightsController">
       <h1>Flights!</h1>
+      <div class="alert alert-success" ng-show="status">
+          {{status}}
+      </div>
       <div class="row">
         <div class="col-md-6" ng-repeat="flight in flights">
           <div class="flightCard">
