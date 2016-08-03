@@ -1,0 +1,9 @@
+/* Styles go here */
+
+.flightCard {
+    background-color: #efefef;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    border-color: #000000;
+    margin: 2px;
+}
