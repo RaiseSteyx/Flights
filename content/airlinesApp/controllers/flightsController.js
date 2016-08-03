@@ -1,5 +1,15 @@
 (function (app) {
     var flightsController = function ($scope) {
+        $scope.selectFlight = function (flight) {
+            var toggle = !flight.approved;
+
+            for (var f in $scope.flights) {
+                $scope.flights[f].approved = false;
+            }
+
+            flight.approved = toggle;
+        };
+
         $scope.flights = [
             {
                 airline: "United",
@@ -9,7 +19,8 @@
                 totalDuration:2,
                 price:500,
                 date: "12/1/2014",
-                cities: ["ORD", "LAS"]
+                cities: ["ORD", "LAS"],
+                approved: false
             },
             {
                 airline: "United",
@@ -19,7 +30,8 @@
                 totalDuration:2,
                 price:500,
                 date: "12/1/2014",
-                cities: ["SFA", "LAS"]
+                cities: ["SFA", "LAS"],
+                approved: false
             }
         ];
     };

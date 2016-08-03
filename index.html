@@ -14,7 +14,19 @@
       <div class="row">
         <div class="col-md-6" ng-repeat="flight in flights">
           <div class="flightCard">
-            <h3>{{flight.airline}}</h3>
+            <div class="approvedFlight">
+              <h3>{{flight.airline}}</h3>
+            </div>
+            <div class="pull-right">
+              <button ng-class="{ btn:true, 'btn-success':flight.approved }" ng-click="selectFlight(flight)">
+                <b>SELECT</b>
+                <span class="glyphicon glyphicon-ok"></span>
+              </button>
+            </div>
+            <!--<button ng-if="!flight.approved" class="btn btn-primary pull-right" ng-click="selectFlight(flight)">
+              <b>SELECT</b>
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>-->
             <div>
               <span>Price: {{flight.price}}</span>
               <span>Duration: {{flight.totalDuration}}</span>
