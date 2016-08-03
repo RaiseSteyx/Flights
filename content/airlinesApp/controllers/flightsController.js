@@ -1,5 +1,5 @@
 (function (app) {
-    var flightsController = function ($scope, flightService) {
+    var flightsController = function ($scope, flightService, $timeout) {
         $scope.selectFlight = function (flight) {
             var toggle = !flight.approved;
 
@@ -9,16 +9,18 @@
 
             flight.approved = toggle;
             if (flightService.selectFlight(flight.id)) {
-                $scope.status = "You have made a great decision!";
-            }
-            if (!toggle) {
-                $scope.status = false;
+                if (toggle) {
+                    $scope.status = "You have made a great decision!";
+                    $timeout(function () {
+                        $scope.status = null;
+                    }, 1000);
+                }
             }
 
         };
             $scope.flights = flightService.getFlights();
     };
 
-    app.controller("flightsController", ["$scope", "flightService", flightsController]);
+    app.controller("flightsController", ["$scope", "flightService", "$timeout", flightsController]);
 
 }(angular.module("airlineApp")));
